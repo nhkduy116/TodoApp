@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_max">68dp</dimen>
+    <dimen name="margin_max_medium">32dp</dimen>
+    <dimen name="margin_medium">24dp</dimen>
+
+    <dimen name="txt_medium">24sp</dimen>
+    <dimen name="txt_min_medium">16sp</dimen>
+    <dimen name="txt_min">12sp</dimen>
+</resources>

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TodoApp</string>
+    <string name="organize_pl">
+        organize, plan, and collaborate on tasks with Mtodo.Your busy life deserves this.you can manage checklist and your goal.
+    </string>
+    <string name="manage_your">
+        Manage your tasks
+    </string>
+    <string name="get_started">Get started</string>
 </resources>

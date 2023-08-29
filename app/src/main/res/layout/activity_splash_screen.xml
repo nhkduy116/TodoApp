@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".SplashScreenActivity">
+
+    <RelativeLayout
+        android:id="@+id/completed_r"
+        android:layout_width="match_parent"
+        android:layout_height="359dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/margin_max">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/img_get_started"
+            android:scaleType="fitCenter"
+            android:importantForAccessibility="no" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/frame_58"
+        android:layout_width="276dp"
+        android:layout_height="85dp"
+        android:layout_below="@+id/completed_r"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/manage_your"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/manage_your"
+            android:textAppearance="@style/manage_your"
+            android:gravity="top" />
+
+        <TextView
+            android:id="@+id/organize_pl"
+            android:layout_width="276dp"
+            android:layout_height="42dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="43dp"
+            android:text="@string/organize_pl"
+            android:textAppearance="@style/organize_pl"
+            android:gravity="center_horizontal|top"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_get_started"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/frame_58"
+        android:layout_marginTop="@dimen/margin_max_medium"
+        android:background="@drawable/style_button_large">
+
+        <TextView
+            android:id="@+id/get_started"
+            android:layout_width="80dp"
+            android:layout_height="19dp"
+            android:text="@string/get_started"
+            android:textAppearance="@style/get_started"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
