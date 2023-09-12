@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/padding_max_medium"
+    tools:ignore="HardcodedText">
+
+    <ImageView
+        android:id="@+id/imv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_bx_arrow_back"
+        android:layout_marginBottom="@dimen/margin_very_min"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/img_avt"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/padding_very_min"
+            android:gravity="start|center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nguyen Duy"
+                style="@style/hello_alma"/>
+
+            <TextView
+                android:id="@+id/tv_profile_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/alma_lawson"
+                android:text="duynguyen11062002@gmail.com"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line_3"
+        android:layout_width="168dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:background="@drawable/line_3" />
+
+</LinearLayout>

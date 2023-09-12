@@ -3,6 +3,12 @@
     <dimen name="margin_max">68dp</dimen>
     <dimen name="margin_max_medium">32dp</dimen>
     <dimen name="margin_medium">24dp</dimen>
+    <dimen name="margin_very_min">8dp</dimen>
+
+    <dimen name="padding_max_medium">24dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_min">12dp</dimen>
+    <dimen name="padding_very_min">8dp</dimen>
 
     <dimen name="txt_medium">24sp</dimen>
     <dimen name="txt_min_medium">16sp</dimen>

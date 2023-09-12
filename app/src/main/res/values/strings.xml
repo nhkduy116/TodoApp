@@ -7,4 +7,13 @@
         Manage your tasks
     </string>
     <string name="get_started">Get started</string>
+    
+<!--    String menu of navigation view-->
+    <string name="nav_edit_profile">Edit profile</string>
+    <string name="nav_daily_tasks">Daily tasks</string>
+    <string name="nav_important_tasks">Important tasks</string>
+    <string name="nav_done_tasks">Done tasks</string>
+
+
+
 </resources>
