@@ -9,4 +9,5 @@
 
     <color name="color_txt_primary">#363636</color>
     <color name="color_txt_secondary">#8D93AB</color>
+    <color name="color_txt_login">#646FD4</color>
 </resources>

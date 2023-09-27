@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="@dimen/padding_max_medium"
+    android:layout_marginBottom="10dp"
     tools:ignore="HardcodedText">
 
     <ImageView
@@ -49,13 +50,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/line_3"
-        android:layout_width="168dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:background="@drawable/line_3" />
 
 </LinearLayout>

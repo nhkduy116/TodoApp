@@ -7,13 +7,28 @@
         Manage your tasks
     </string>
     <string name="get_started">Get started</string>
-    
-<!--    String menu of navigation view-->
+    <string name="signup">SIGN UP</string>
+
+    <!--    String menu of navigation view-->
     <string name="nav_edit_profile">Edit profile</string>
     <string name="nav_daily_tasks">Daily tasks</string>
     <string name="nav_important_tasks">Important tasks</string>
     <string name="nav_done_tasks">Done tasks</string>
 
+    <string name="start_manag">
+    Start Manage Your Task With\nMtodo
+    </string>
 
+    <string name="already_hav">
+    Already have an account?
+    </string>
+    <string name="already_hav_login">
+    LOG IN
+    </string>
+
+    <string name="hello_again">Hello Again!</string>
+    <string name="wel_back">Welcome Back</string>
+
+    <string name="mtodo_logo">Todo Logo</string>
 
 </resources>

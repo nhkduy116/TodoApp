@@ -22,5 +22,6 @@ public class MainActivity extends AppCompatActivity {
                 binding.toolbar, R.string.app_name, R.string.app_name);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        
     }
 }
