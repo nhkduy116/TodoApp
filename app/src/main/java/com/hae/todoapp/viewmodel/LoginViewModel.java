@@ -31,7 +31,6 @@ public class LoginViewModel extends ViewModel {
     private static final String TAG = "LoginViewModel";
     private final FirebaseAuthenticationRepository mAuthenticationRepository = new FirebaseAuthenticationRepository();
     private final MutableLiveData<FirebaseUser> mFirebaseUserMutableLiveData = new MutableLiveData<>();
-    private DatabaseReference mUserRef;
     private final FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
     public MutableLiveData<String> email = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();

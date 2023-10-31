@@ -53,12 +53,9 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel mLoginViewModel;
     private boolean mCheckShow = true;
     private static final int REQ_ONE_TAP = 2;  // Can be any integer unique to the Activity.
-    private boolean showOneTapUI = true;
     private SignInClient oneTapClient;
     private BeginSignInRequest signInRequest;
     private GoogleSignInClient mGoogleSignInClient;
-
-    private LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,23 +70,22 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginViewModel.getSignInResult().observe(this, firebaseUser -> {
             if (firebaseUser != null) {
-//                ProgressDialogLoadingUtils.dismissProgressLoading();
+                ProgressDialogLoadingUtils.dismissProgressLoading();
                 if (firebaseUser.getDisplayName() == null) {
                     String userName = firebaseUser.getEmail().substring(0, firebaseUser.getEmail().indexOf("@"));
                     User user = new User(firebaseUser.getUid(), userName, firebaseUser.getEmail());
                     Log.d(TAG, user.toString());
                     addUser(user);
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
                 } else {
                     User user = new User(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
                     Log.d(TAG, user.toString());
                     addUser(user);
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
+
                 }
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
             } else {
-//                ProgressDialogLoadingUtils.dismissProgressLoading();
+                ProgressDialogLoadingUtils.dismissProgressLoading();
                 Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
             }
         });
@@ -175,10 +171,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClickLoginWithEmailAndPassword(View view) {
-//        ProgressDialogLoadingUtils.showProgressLoading(view.getContext());
+        ProgressDialogLoadingUtils.showProgressLoading(view.getContext());
         if (mLoginViewModel.email.getValue() == null || mLoginViewModel.email.getValue().isEmpty()
             || mLoginViewModel.password.getValue() == null || mLoginViewModel.password.getValue().isEmpty()) {
-//            ProgressDialogLoadingUtils.dismissProgressLoading();
+            ProgressDialogLoadingUtils.dismissProgressLoading();
             mLoginViewModel.signInWithEmailAndPassword();
         } else {
             mLoginViewModel.signInWithEmailAndPassword();
