@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">TodoApp</string>
+
+    <string name="facebook_app_id">170838569399012</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">944fc663ca819f6b296cbcc3cd2ae408</string>
+
     <string name="organize_pl">
         organize, plan, and collaborate on tasks with Mtodo.Your busy life deserves this.you can manage checklist and your goal.
     </string>
@@ -15,8 +20,8 @@
     <string name="nav_important_tasks">Important tasks</string>
     <string name="nav_done_tasks">Done tasks</string>
 
-    <string name="start_manag">
-    Start Manage Your Task With\nMtodo
+    <string name="start_manage">
+    Start Manage Your Task With\nTodo
     </string>
 
     <string name="already_hav">
@@ -27,8 +32,21 @@
     </string>
 
     <string name="hello_again">Hello Again!</string>
+    <string name="hello">Hello!</string>
     <string name="wel_back">Welcome Back</string>
+    <string name="wel_todo_app">welcome to Todo app</string>
+    <string name="signup_started">sign up to get started.</string>
 
-    <string name="mtodo_logo">Todo Logo</string>
+    <string name="todo_logo">Todo Logo</string>
+    <string name="edit_name">your name</string>
+    <string name="edit_email">Enter your email</string>
+    <string name="edit_password">password</string>
+
+    <!-- strings.xml -->
+    <string name="or_continue">Or Continue With</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="not_a_member">Not a member?</string>
+    <string name="register_now">Register now</string>
 
 </resources>

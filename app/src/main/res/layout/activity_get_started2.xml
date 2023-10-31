@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".SplashScreenActivity">
+    tools:context=".view.SplashScreenActivity">
 
     <RelativeLayout
         android:id="@+id/completed_r"
@@ -28,7 +28,7 @@
         android:id="@+id/start_manag"
         android:layout_width="276dp"
         android:layout_height="66dp"
-        android:text="@string/start_manag"
+        android:text="@string/start_manage"
         android:textAppearance="@style/start_manag"
         android:gravity="center_horizontal|top"
         android:layout_below="@+id/completed_r"
