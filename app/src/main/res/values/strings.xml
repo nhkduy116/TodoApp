@@ -42,11 +42,19 @@
     <string name="edit_email">Enter your email</string>
     <string name="edit_password">password</string>
 
-    <!-- strings.xml -->
     <string name="or_continue">Or Continue With</string>
     <string name="google">Google</string>
     <string name="facebook">Facebook</string>
     <string name="not_a_member">Not a member?</string>
     <string name="register_now">Register now</string>
+    <string name="by_signing_up">by signing up you agree to our terms &amp; conditions of use and privacy policy.</string>
+
+    <string name="toast_enter_all_information">Please complete all information.</string>
+    <string name="toast_email_badly_formatted">The email address is badly formatted.</string>
+    <string name="toast_email_already_another_account">The email address is already in use by another account.</string>
+    <string name="toast_password_invalid">The given password is invalid.</string>
+    <string name="toast_wrong_email_password">Wrong email or password</string>
+
+    <string name="error_password_invalid">The password is invalid it must 6 characters at least</string>
 
 </resources>

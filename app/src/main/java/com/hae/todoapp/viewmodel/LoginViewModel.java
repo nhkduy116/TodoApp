@@ -42,7 +42,7 @@ public class LoginViewModel extends ViewModel {
         String strUserEmail = email.getValue();
         String strUserPassword = password.getValue();
 
-        if (strUserEmail == null || !isValidEmail(strUserEmail) || strUserPassword == null || !isValidPassword(strUserPassword)) {
+        if (strUserEmail == null || strUserPassword == null) {
             mFirebaseUserMutableLiveData.setValue(null);
         } else {
             mAuthenticationRepository.signInWithEmailAndPassword(strUserEmail, strUserPassword, new FirebaseAuthenticationRepository.SignInCallback() {

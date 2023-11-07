@@ -21,10 +21,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.hae.todoapp.R;
 import com.hae.todoapp.data.model.User;
 import com.hae.todoapp.databinding.ActivitySignupBinding;
+import com.hae.todoapp.utils.ProgressDialogLoadingUtils;
+import com.hae.todoapp.utils.ToastUtils;
 import com.hae.todoapp.viewmodel.SignupViewModel;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
+    private Context context;
     private ActivitySignupBinding binding;
     private SignupViewModel mSignupViewModel;
     private SignInClient oneTapClient;
@@ -34,6 +37,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        context = this;
         mSignupViewModel = new ViewModelProvider(this).get(SignupViewModel.class);
         binding.setSignupViewModel(mSignupViewModel);
         oneTapClient = Identity.getSignInClient(SignupActivity.this);
@@ -68,26 +72,56 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
+        binding.layoutLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finishAffinity();
+            }
+        });
 
         mSignupViewModel.getRegistrationResult().observe(this, firebaseUser -> {
+            ProgressDialogLoadingUtils.dismissProgressLoading();
             if (firebaseUser != null) {
                 User user = new User(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
                 Log.d(TAG, "getRegistrationResult: " + user);
                 addUser(user);
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        mSignupViewModel.getExceptionResult().observe(this, firebaseException -> {
+            ProgressDialogLoadingUtils.dismissProgressLoading();
+            if (firebaseException == null) {
+                return;
             } else {
-                Toast.makeText(this, "Signup Failed", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, firebaseException.getErrorCode() + "");
+                switch (firebaseException.getErrorCode()) {
+                    case "ERROR_INVALID_EMAIL":
+                        ToastUtils.showToastLong(context, getString(R.string.toast_email_badly_formatted));
+                        break;
+                    case "ERROR_EMAIL_ALREADY_IN_USE":
+                        ToastUtils.showToastLong(context, getString(R.string.toast_email_already_another_account));
+                        break;
+                    case "ERROR_WEAK_PASSWORD":
+                        ToastUtils.showToastLong(context, getString(R.string.toast_password_invalid));
+                        binding.edtPassword.setError(getString(R.string.error_password_invalid));
+                        binding.edtPassword.requestFocus();
+                        break;
+                }
             }
         });
     }
 
     public void onClickRegister(View view) {
         if (mSignupViewModel.userName.getValue() == null || mSignupViewModel.userName.getValue().isEmpty()
-        ||  mSignupViewModel.userEmail.getValue() == null || mSignupViewModel.userEmail.getValue().isEmpty()
-        || mSignupViewModel.userPassword.getValue() == null || mSignupViewModel.userPassword.getValue().isEmpty()) {
-            mSignupViewModel.createAccountWithEmailAndPassword();
+            || mSignupViewModel.userEmail.getValue() == null || mSignupViewModel.userEmail.getValue().isEmpty()
+            || mSignupViewModel.userPassword.getValue() == null || mSignupViewModel.userPassword.getValue().isEmpty()) {
+            Toast.makeText(this, "Please complete all information", Toast.LENGTH_SHORT).show();
         } else {
+            ProgressDialogLoadingUtils.showProgressLoading(context);
             mSignupViewModel.createAccountWithEmailAndPassword();
         }
     }

@@ -20,8 +20,9 @@ public class ProgressDialogLoadingUtils {
     }
 
     public static void dismissProgressLoading() {
-        if (mProgressDialog != null && mProgressDialog.getShowsDialog()) {
+        if (mProgressDialog != null) {
             mProgressDialog.dismiss();
+            mProgressDialog = null;
             Log.d(TAG, "Progress dismiss");
         }
     }

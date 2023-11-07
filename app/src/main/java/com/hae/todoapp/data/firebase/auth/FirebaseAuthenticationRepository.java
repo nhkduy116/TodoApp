@@ -1,13 +1,19 @@
 package com.hae.todoapp.data.firebase.auth;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import java.util.Objects;
+
 public class FirebaseAuthenticationRepository {
-    private static final String TAG = "FirebaseAuthManager";
+    private static final String TAG = "FirebaseAuthenticationRepository";
     private final FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
 
     public void signInWithEmailAndPassword(String email, String password, SignInCallback callback) {

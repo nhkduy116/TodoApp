@@ -83,7 +83,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:hint="@string/edit_name"
-                        android:text="@{SignupViewModel.userName}"
+                        android:text="@={SignupViewModel.userName}"
                         android:inputType="textEmailAddress"
                         android:paddingStart="16dp"
                         android:paddingEnd="@dimen/padding_medium"
@@ -110,7 +110,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:hint="@string/edit_email"
-                        android:text="@{SignupViewModel.userEmail}"
+                        android:text="@={SignupViewModel.userEmail}"
                         android:inputType="textEmailAddress"
                         android:paddingStart="16dp"
                         android:paddingEnd="@dimen/padding_medium"
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:hint="@string/edit_password"
-                        android:text="@{SignupViewModel.userPassword}"
+                        android:text="@={SignupViewModel.userPassword}"
                         android:inputType="textPassword"
                         android:padding="10dp"
                         android:paddingStart="16dp"
@@ -184,13 +184,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/or_continue"/>
+                    android:text="@string/by_signing_up"/>
 
             </LinearLayout>
 
-
-
             <LinearLayout
+                android:id="@+id/layout_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -203,13 +202,13 @@
                     style="@style/not_a_member"
                     android:fontFamily="@font/jost_light"
                     android:layout_marginEnd="@dimen/margin_very_min"
-                    android:text="@string/not_a_member"/>
+                    android:text="@string/already_hav"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/register_now"
-                    android:text="@string/register_now"
+                    android:text="@string/already_hav_login"
                     android:fontFamily="@font/jost_semi_bold"/>
 
             </LinearLayout>
