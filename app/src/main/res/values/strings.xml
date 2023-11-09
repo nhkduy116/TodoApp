@@ -56,5 +56,6 @@
     <string name="toast_wrong_email_password">Wrong email or password</string>
 
     <string name="error_password_invalid">The password is invalid it must 6 characters at least</string>
+    <string name="error_email_invalid">The email is invalid</string>
 
 </resources>

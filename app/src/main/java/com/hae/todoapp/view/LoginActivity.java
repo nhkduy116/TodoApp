@@ -63,33 +63,31 @@ public class LoginActivity extends AppCompatActivity {
         binding.setLoginViewModel(mLoginViewModel);
         oneTapClient = Identity.getSignInClient(LoginActivity.this);
 
-        mLoginViewModel.getSignInResult().observe(this, firebaseUser -> {
-            if (firebaseUser != null) {
-                ProgressDialogLoadingUtils.dismissProgressLoading();
-                if (firebaseUser.getDisplayName() == null) {
-                    String userName = firebaseUser.getEmail().substring(0, firebaseUser.getEmail().indexOf("@"));
-                    User user = new User(firebaseUser.getUid(), userName, firebaseUser.getEmail());
-                    Log.d(TAG, user.toString());
-                    addUser(user);
-                } else {
-                    User user = new User(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
-                    Log.d(TAG, user.toString());
-                    addUser(user);
-                }
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            } else {
-                ProgressDialogLoadingUtils.dismissProgressLoading();
-                ToastUtils.showToastShort(context, getString(R.string.toast_wrong_email_password));
-            }
-        });
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .requestId()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
+
+        mLoginViewModel.getSignInResult().observe(this, firebaseUser -> {
+            ProgressDialogLoadingUtils.dismissProgressLoading();
+            if (firebaseUser != null) {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            } else {
+                ToastUtils.showToastShort(context, getString(R.string.toast_wrong_email_password));
+            }
+        });
+
+        mLoginViewModel.getSignInGoogleResult().observe(this, googleSignInAccount -> {
+            if (googleSignInAccount != null) {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            } else {
+                ToastUtils.showToastShort(context, "Login with Google failed");
+            }
+        });
 
         binding.editEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -125,14 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        binding.layoutLoginGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "Click layout login Google");
-                Intent signinIntent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signinIntent, RC_SIGN_IN);
-            }
-        });
+
         binding.layoutRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,14 +131,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        binding.layoutLoginFacebook.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(LoginActivity.this, FacebookAuthActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     public void onClickLoginWithEmailAndPassword(View view) {
@@ -158,6 +141,16 @@ public class LoginActivity extends AppCompatActivity {
             ProgressDialogLoadingUtils.showProgressLoading(context);
             mLoginViewModel.signInWithEmailAndPassword();
         }
+    }
+
+    public void onClickLoginWithGoogle(View view) {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, gso);
+        Intent intent = googleSignInClient.getSignInIntent();
+        startActivityForResult(intent, 101);
     }
 
     @Override
@@ -186,32 +179,11 @@ public class LoginActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> accountTask = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = accountTask.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
+                mLoginViewModel.signInWithGoogle(account);
             } catch (Exception e) {
                 Log.d(TAG, e.getMessage() + "");
             }
         }
     }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        mUserViewModel.signInWithGoogle(account.getIdToken()).observe(this, firebaseUser -> {
-            if (firebaseUser != null) {
-                String uid = firebaseUser.getUid();
-                String email = firebaseUser.getEmail();
-                Log.d(TAG, "uid: " + uid);
-                Log.d(TAG, "email: " + email);
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                finish();
-            }
-        });
-    }
-
-    private void addUser(User user) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("list_user");
-        String pathObject = user.getUID();
-        Log.d(TAG, pathObject);
-        myRef.child(pathObject).setValue(user);
-    }
-
+    
 }

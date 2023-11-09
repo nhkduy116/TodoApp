@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.facebook.login.Login;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +38,9 @@ public class LoginViewModel extends ViewModel {
     public LiveData<FirebaseUser> getSignInResult() {
         return mFirebaseUserMutableLiveData;
     }
+    public LiveData<FirebaseUser> getSignInGoogleResult() {
+        return mFirebaseUserMutableLiveData;
+    }
 
     public void signInWithEmailAndPassword() {
         String strUserEmail = email.getValue();
@@ -59,36 +63,22 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
+    public void signInWithGoogle(GoogleSignInAccount account) {
+        mAuthenticationRepository.signInWithGoogle(account.getIdToken(), new FirebaseAuthenticationRepository.SignInGoogleCallback() {
+            @Override
+            public void onSignInGoogleSuccess(FirebaseUser user) {
+                mFirebaseUserMutableLiveData.setValue(user);
+            }
+
+            @Override
+            public void onSignInGoogleFailure(Exception e) {
+                mFirebaseUserMutableLiveData.setValue(null);
+            }
+        });
+    }
+
 //    public LiveData<FirebaseUser> signInWithGoogle() {
 //        return mUserRepository.signInWithGoogle(email.getValue());
-//    }
-
-//    public void onCLickLoginWithEmailPassword(View view) {
-//        Log.d("LoginViewModel", "onCLickLoginWithEmailPassword");
-//        if (Objects.equals(email.getValue(), "") || Objects.equals(password.getValue(), "")) {
-//            ProgressDialogLoadingUtils.dismissProgressLoading();
-//            Toast.makeText(view.getContext(), "Please complete all information.",
-//                    Toast.LENGTH_SHORT).show();
-//            return;
-//        } else {
-//            mUserRef = mFirebaseDatabase.getReference("list_user");
-//            ProgressDialogLoadingUtils.dismissProgressLoading();
-//            Log.d("LoginActivity", email.getValue() + " " + password.getValue());
-//            signInWithEmailPassword().observe((LifecycleOwner) view.getContext(), firebaseUser -> {
-//                if (firebaseUser != null) {
-//                    ProgressDialogLoadingUtils.dismissProgressLoading();
-//                    String pathUser = firebaseUser.getUid();
-//                    User user = new User(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
-//                    mUserRef.child(pathUser).setValue(user, new DatabaseReference.CompletionListener() {
-//                        @Override
-//                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-//                            Log.d(TAG, "user: " + user.toString());
-//                            signInResult.setValue(firebaseUser);
-//                        }
-//                    });
-//                }
-//            });
-//        }
 //    }
 
     private boolean isValidEmail(String email) {

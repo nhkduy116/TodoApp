@@ -101,6 +101,8 @@ public class SignupActivity extends AppCompatActivity {
                 switch (firebaseException.getErrorCode()) {
                     case "ERROR_INVALID_EMAIL":
                         ToastUtils.showToastLong(context, getString(R.string.toast_email_badly_formatted));
+                        binding.editEmail.setError(getString(R.string.error_email_invalid));
+                        binding.editEmail.requestFocus();
                         break;
                     case "ERROR_EMAIL_ALREADY_IN_USE":
                         ToastUtils.showToastLong(context, getString(R.string.toast_email_already_another_account));
