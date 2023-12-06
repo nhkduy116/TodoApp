@@ -15,6 +15,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.hae.todoapp.data.model.User;
 
 import java.util.Objects;
@@ -84,6 +85,8 @@ public class FirebaseAuthenticationRepository {
 
     private void addUser(User user) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(user.getUID()).set(user);
         DatabaseReference myRef = firebaseDatabase.getReference("list_user");
         String pathObject = user.getUID();
         Log.d(TAG, pathObject);

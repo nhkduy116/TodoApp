@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.hae.todoapp.R;
 import com.hae.todoapp.data.model.User;
 import com.hae.todoapp.databinding.ActivitySignupBinding;
@@ -129,11 +130,13 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void addUser(User user) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("list_user");
-        String pathObject = user.getUID();
-        Log.d(TAG, pathObject);
-        myRef.child(pathObject).setValue(user);
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("list_user");
+//        String pathObject = user.getUID();
+//        Log.d(TAG, pathObject);
+//        myRef.child(pathObject).setValue(user);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(user.getUID()).set(user);
     }
 
     @Override

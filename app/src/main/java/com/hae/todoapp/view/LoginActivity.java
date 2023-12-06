@@ -89,6 +89,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        binding.layoutLoginFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.showToastLong(context, "The Facebook login function is developing");
+            }
+        });
+
         binding.editEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -185,5 +192,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-    
+
 }
