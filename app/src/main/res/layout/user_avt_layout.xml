@@ -10,6 +10,6 @@
         android:id="@+id/tb_user_avt"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/img_avt_df"/>
+        android:src="@drawable/img_avt_df1"/>
 
 </FrameLayout>

@@ -1,13 +1,5 @@
 package com.hae.todoapp.view;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.core.view.MenuItemCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +7,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -27,10 +26,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.hae.todoapp.R;
 import com.hae.todoapp.databinding.ActivityMainBinding;
-
-import java.io.File;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int FRAGMENT_HOME = 1;
@@ -47,13 +42,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout,
-                binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        Xem comment ở layout activity_main.xml
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
         binding.navigationView.setNavigationItemSelectedListener(this);
+
         replaceFragment(new HomeFragment());
         binding.navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
         TextView user_name = binding.navigationView.getHeaderView(0).findViewById(R.id.tv_profile_name);
@@ -64,13 +60,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             user_name.setText(firebaseUser.getDisplayName());
             user_email.setText(firebaseUser.getEmail());
             RequestOptions requestOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL);
-            Glide.with(this).load(photoUrl)
-                    .apply(requestOptions)
-                    .placeholder(R.drawable.img_avt)
-                    .error(R.drawable.img_avt_df)
-                    .into(user_avt);
+            //          img_avt_df bị lỗi không xem được ảnh dùng tạm img_avt_df1
+            Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.img_avt).error(R.drawable.img_avt_df1).into(user_avt);
         } else {
-            user_avt.setImageResource(R.drawable.img_avt_df);
+            //          img_avt_df bị lỗi không xem được ảnh dùng tạm img_avt_df1
+            user_avt.setImageResource(R.drawable.img_avt_df1);
         }
 
     }
@@ -87,20 +81,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.tb_user_avt);
+//          Bị trùng id với dòng 85 nên đổi id thành item_user_avt
+        MenuItem menuItem = menu.findItem(R.id.item_user_avt);
         View view = menuItem.getActionView();
         assert view != null;
         ImageView userAvt = view.findViewById(R.id.tb_user_avt);
         if (firebaseUser != null) {
             String photoUrl = firebaseUser.getPhotoUrl().toString();
             RequestOptions requestOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL);
-            Glide.with(this).load(photoUrl)
-                    .apply(requestOptions)
-                    .placeholder(R.drawable.img_avt)
-                    .error(R.drawable.img_avt_df)
-                    .into(userAvt);
+            Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.img_avt)
+//          img_avt_df bị lỗi không xem được ảnh dùng tạm img_avt_df1
+                    .error(R.drawable.img_avt_df1).into(userAvt);
         } else {
-            userAvt.setImageResource(R.drawable.img_avt_df);
+//          img_avt_df bị lỗi không xem được ảnh dùng tạm img_avt_df1
+            userAvt.setImageResource(R.drawable.img_avt_df1);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -129,9 +123,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mCurrentFragment = FRAGMENT_IMPORTANT_TASKS;
             }
         } else if (itemId == R.id.nav_done_tasks) {
-            if (mCurrentFragment != FRAGMENT_DAILY_TASKS) {
+            if (mCurrentFragment != FRAGMENT_DONE_TASKS) {
                 replaceFragment(new DoneTasksFragment());
-                mCurrentFragment = FRAGMENT_DAILY_TASKS;
+                mCurrentFragment = FRAGMENT_DONE_TASKS;
             }
         } else if (itemId == R.id.nav_sign_out) {
             signOut();
@@ -145,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         transaction.replace(R.id.content_frame, fragment);
         transaction.commit();
     }
+
     private void signOut() {
         FirebaseAuth.getInstance().signOut();
         GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(getApplicationContext(), GoogleSignInOptions.DEFAULT_SIGN_IN);

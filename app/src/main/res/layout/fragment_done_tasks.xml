@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@drawable/ic_show_focused"
-        android:text="@string/hello_blank_fragment" />
+        android:textColor="@color/color_secondary"
+        android:text="@string/done_fragment" />
 
 </FrameLayout>

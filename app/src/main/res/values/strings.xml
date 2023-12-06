@@ -59,7 +59,11 @@
     <string name="error_password_invalid">The password is invalid it must 6 characters at least</string>
     <string name="error_email_invalid">The email is invalid</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_fragment">home_fragment</string>
+    <string name="edit_fragment">edit_fragment</string>
+    <string name="daily_fragment">daily_fragment</string>
+    <string name="important_fragment">important_fragment</string>
+    <string name="done_fragment">done_fragment</string>
     <string name="tb_avatar">Avatar</string>
 
 </resources>

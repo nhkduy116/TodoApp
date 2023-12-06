@@ -10,6 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@drawable/bg_border_login_google"
-        android:text="@string/hello_blank_fragment" />
+        android:text="@string/important_fragment" />
 
 </FrameLayout>
