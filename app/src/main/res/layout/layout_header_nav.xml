@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="@dimen/padding_max_medium"
+    android:paddingVertical="@dimen/padding_min"
     android:layout_marginBottom="10dp"
     tools:ignore="HardcodedText">
 
