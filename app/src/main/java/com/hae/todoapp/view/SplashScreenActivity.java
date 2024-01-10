@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.hae.todoapp.databinding.ActivitySplashScreenBinding;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -20,7 +23,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         boolean isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true);
         if (isFirstLaunch) {
-            assert binding.btnGetStarted != null;
             binding.btnGetStarted.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -32,8 +34,19 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
             });
         } else {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (firebaseUser != null) {
+                        startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+                        finishAffinity();
+                    } else {
+                        startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
+                        finishAffinity();
+                    }
+                }
+            }, 1500);
         }
     }
 }

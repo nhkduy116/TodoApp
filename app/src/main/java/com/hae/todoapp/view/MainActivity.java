@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
-//        Xem comment ở layout activity_main.xml
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout,
+                binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -60,13 +60,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             user_name.setText(firebaseUser.getDisplayName());
             user_email.setText(firebaseUser.getEmail());
             RequestOptions requestOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL);
-            //          img_avt_df bị lỗi không xem được ảnh dùng tạm img_avt_df1
-            Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.img_avt).error(R.drawable.img_avt_df1).into(user_avt);
+            Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.img_avt).error(R.drawable.img_avt_df).into(user_avt);
         } else {
-            //          img_avt_df bị lỗi không xem được ảnh dùng tạm img_avt_df1
-            user_avt.setImageResource(R.drawable.img_avt_df1);
+            user_avt.setImageResource(R.drawable.img_avt_df);
         }
-
+        binding.navigationView.getHeaderView(0).findViewById(R.id.imv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 binding.drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
     }
 
     @Override
@@ -81,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-//          Bị trùng id với dòng 85 nên đổi id thành item_user_avt
         MenuItem menuItem = menu.findItem(R.id.item_user_avt);
         View view = menuItem.getActionView();
         assert view != null;
@@ -90,10 +92,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String photoUrl = firebaseUser.getPhotoUrl().toString();
             RequestOptions requestOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL);
             Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.img_avt)
-//          img_avt_df bị lỗi không xem được ảnh dùng tạm img_avt_df1
                     .error(R.drawable.img_avt_df1).into(userAvt);
         } else {
-//          img_avt_df bị lỗi không xem được ảnh dùng tạm img_avt_df1
             userAvt.setImageResource(R.drawable.img_avt_df1);
         }
         return super.onCreateOptionsMenu(menu);
@@ -132,6 +132,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void updateUI(FirebaseUser user) {
+
     }
 
     private void replaceFragment(Fragment fragment) {

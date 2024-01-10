@@ -13,4 +13,6 @@
     <color name="color_hint_hide">#D9D9D9</color>
     <color name="color_hint_hide_bold">#455A64</color>
     <color name="color_login_facebook">#4267B2</color>
+
+    <color name="toolbarTransparent">#00FFFFFF</color>
 </resources>

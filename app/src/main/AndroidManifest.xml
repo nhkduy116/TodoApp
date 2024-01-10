@@ -29,7 +29,7 @@
             android:name=".view.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.SplashScreenActivity"
+            android:name=".view.MainActivity"
             android:exported="false" />
         <activity
             android:name="com.facebook.FacebookActivity"

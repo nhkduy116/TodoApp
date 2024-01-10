@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             if (firebaseUser != null) {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                finishAffinity();
             } else {
                 ToastUtils.showToastShort(context, getString(R.string.toast_wrong_email_password));
             }
@@ -84,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             if (googleSignInAccount != null) {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                finishAffinity();
             } else {
                 ToastUtils.showToastShort(context, "Login with Google failed");
             }
