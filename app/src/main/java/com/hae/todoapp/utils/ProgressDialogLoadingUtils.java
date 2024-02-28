@@ -15,7 +15,7 @@ public class ProgressDialogLoadingUtils {
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setCancelable(false);
             mProgressDialog.show();
-            Log.d(TAG, "Progress show");
+//            Log.d(TAG, "Progress show");
         }
     }
 
@@ -23,7 +23,7 @@ public class ProgressDialogLoadingUtils {
         if (mProgressDialog != null) {
             mProgressDialog.dismiss();
             mProgressDialog = null;
-            Log.d(TAG, "Progress dismiss");
+//            Log.d(TAG, "Progress dismiss");
         }
     }
 }

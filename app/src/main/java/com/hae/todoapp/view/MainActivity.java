@@ -1,10 +1,15 @@
 package com.hae.todoapp.view;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,9 +65,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             user_name.setText(firebaseUser.getDisplayName());
             user_email.setText(firebaseUser.getEmail());
             RequestOptions requestOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL);
-            Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.img_avt).error(R.drawable.img_avt_df).into(user_avt);
+            Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.user).error(R.drawable.user).into(user_avt);
         } else {
-            user_avt.setImageResource(R.drawable.img_avt_df);
+            user_avt.setImageResource(R.drawable.user);
         }
         binding.navigationView.getHeaderView(0).findViewById(R.id.imv_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,10 +96,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (firebaseUser != null) {
             String photoUrl = firebaseUser.getPhotoUrl().toString();
             RequestOptions requestOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL);
-            Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.img_avt)
-                    .error(R.drawable.img_avt_df1).into(userAvt);
+            Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.user)
+                    .error(R.drawable.user).into(userAvt);
         } else {
-            userAvt.setImageResource(R.drawable.img_avt_df1);
+            userAvt.setImageResource(R.drawable.user);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -151,5 +156,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         googleSignInClient.revokeAccess();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
         finishAffinity();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 }

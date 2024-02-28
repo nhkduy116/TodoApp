@@ -6,6 +6,7 @@
     <dimen name="margin_medium">24dp</dimen>
     <dimen name="margin_min_medium">16dp</dimen>
     <dimen name="margin_very_min">8dp</dimen>
+    <dimen name="margin_max_min">4dp</dimen>
 
     <dimen name="padding_max_medium">24dp</dimen>
     <dimen name="padding_medium">16dp</dimen>

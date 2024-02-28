@@ -27,10 +27,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.hae.todoapp.R;
 import com.hae.todoapp.data.model.User;
+import com.hae.todoapp.data.model.UserProfile;
 import com.hae.todoapp.databinding.ActivityLoginBinding;
 import com.hae.todoapp.utils.ProgressDialogLoadingUtils;
 import com.hae.todoapp.utils.ToastUtils;
@@ -50,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     private SignInClient oneTapClient;
     private BeginSignInRequest signInRequest;
     private GoogleSignInClient mGoogleSignInClient;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginViewModel.getSignInGoogleResult().observe(this, googleSignInAccount -> {
             if (googleSignInAccount != null) {
+                addUserToFireStore(googleSignInAccount);
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finishAffinity();
@@ -160,6 +165,17 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, gso);
         Intent intent = googleSignInClient.getSignInIntent();
         startActivityForResult(intent, 101);
+    }
+
+    private void addUserToFireStore(FirebaseUser firebaseUser) {
+        UserProfile userProfile = new UserProfile(
+                firebaseUser.getUid(),
+                firebaseUser.getEmail(),
+                firebaseUser.getDisplayName(),
+                "",
+                "",
+                String.valueOf(firebaseUser.getPhotoUrl()));
+        db.collection("users").document(firebaseUser.getUid()).set(userProfile);
     }
 
     @Override

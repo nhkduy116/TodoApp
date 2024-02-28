@@ -43,6 +43,13 @@
     <string name="edit_email">Enter your email</string>
     <string name="edit_password">password</string>
 
+    <string name="tv_email">Email:</string>
+    <string name="tv_username">Your name:</string>
+    <string name="tv_dateOfBirth">Date of Birth:</string>
+    <string name="tv_gender">Gender:</string>
+    <string name="tv_save">Save</string>
+    <string name="tv_cancel">Cancel</string>
+
     <string name="or_continue">Or Continue With</string>
     <string name="google">Google</string>
     <string name="facebook">Facebook</string>
