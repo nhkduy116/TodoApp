@@ -61,11 +61,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView user_email = binding.navigationView.getHeaderView(0).findViewById(R.id.tv_profile_email);
         ImageView user_avt = binding.navigationView.getHeaderView(0).findViewById(R.id.profile_image);
         if (firebaseUser != null) {
-            String photoUrl = firebaseUser.getPhotoUrl().toString();
             user_name.setText(firebaseUser.getDisplayName());
             user_email.setText(firebaseUser.getEmail());
             RequestOptions requestOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL);
-            Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.user).error(R.drawable.user).into(user_avt);
+            if (firebaseUser.getPhotoUrl() == null) {
+                Glide.with(this).load(R.drawable.user).apply(requestOptions).placeholder(R.drawable.user).error(R.drawable.user).into(user_avt);
+            } else {
+                String photoUrl = firebaseUser.getPhotoUrl().toString();
+                Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.user).error(R.drawable.user).into(user_avt);
+            }
         } else {
             user_avt.setImageResource(R.drawable.user);
         }
@@ -94,10 +98,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         assert view != null;
         ImageView userAvt = view.findViewById(R.id.tb_user_avt);
         if (firebaseUser != null) {
-            String photoUrl = firebaseUser.getPhotoUrl().toString();
             RequestOptions requestOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL);
-            Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.user)
-                    .error(R.drawable.user).into(userAvt);
+            if (firebaseUser.getPhotoUrl() == null) {
+                Glide.with(this).load(R.drawable.user).apply(requestOptions).placeholder(R.drawable.user).error(R.drawable.user).into(userAvt);
+            } else {
+                String photoUrl = firebaseUser.getPhotoUrl().toString();
+                Glide.with(this).load(photoUrl).apply(requestOptions).placeholder(R.drawable.user).error(R.drawable.user).into(userAvt);
+            }
         } else {
             userAvt.setImageResource(R.drawable.user);
         }

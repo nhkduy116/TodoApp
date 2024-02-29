@@ -72,8 +72,6 @@ public class FirebaseAuthenticationRepository {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "signInWithGoogle: task successful");
                         FirebaseUser firebaseUser = task.getResult().getUser();
-                        User user = new User(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
-                        addUser(user);
                         callback.onSignInGoogleSuccess(firebaseUser);
                     } else {
                         Log.d(TAG, "signInWithGoogle: task failure");
@@ -81,16 +79,6 @@ public class FirebaseAuthenticationRepository {
                         callback.onSignInGoogleFailure(exception);
                     }
                 });
-    }
-
-    private void addUser(User user) {
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(user.getUID()).set(user);
-        DatabaseReference myRef = firebaseDatabase.getReference("list_user");
-        String pathObject = user.getUID();
-        Log.d(TAG, pathObject);
-        myRef.child(pathObject).setValue(user);
     }
 
     public interface SignInCallback {

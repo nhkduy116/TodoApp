@@ -13,15 +13,21 @@ import androidx.lifecycle.ViewModel;
 
 import com.facebook.login.Login;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.hae.todoapp.data.firebase.auth.FirebaseAuthenticationRepository;
 import com.hae.todoapp.data.model.LoginUser;
 import com.hae.todoapp.data.model.User;
+import com.hae.todoapp.data.model.UserProfile;
 import com.hae.todoapp.data.repository.UserRepository;
 import com.hae.todoapp.utils.ProgressDialogLoadingUtils;
 
@@ -32,13 +38,9 @@ public class LoginViewModel extends ViewModel {
     private static final String TAG = "LoginViewModel";
     private final FirebaseAuthenticationRepository mAuthenticationRepository = new FirebaseAuthenticationRepository();
     private final MutableLiveData<FirebaseUser> mFirebaseUserMutableLiveData = new MutableLiveData<>();
-    private final FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
     public MutableLiveData<String> email = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
     public LiveData<FirebaseUser> getSignInResult() {
-        return mFirebaseUserMutableLiveData;
-    }
-    public LiveData<FirebaseUser> getSignInGoogleResult() {
         return mFirebaseUserMutableLiveData;
     }
 
@@ -76,10 +78,6 @@ public class LoginViewModel extends ViewModel {
             }
         });
     }
-
-//    public LiveData<FirebaseUser> signInWithGoogle() {
-//        return mUserRepository.signInWithGoogle(email.getValue());
-//    }
 
     private boolean isValidEmail(String email) {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";

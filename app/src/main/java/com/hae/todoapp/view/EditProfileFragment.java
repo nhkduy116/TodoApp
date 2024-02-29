@@ -89,9 +89,12 @@ public class EditProfileFragment extends Fragment{
             if (userProfile != null) {
                 Log.d("getUserProfileObserve", userProfile.toString());
                 RequestOptions requestOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL);
-                userPhotoUrl = userProfile.getPhotoUrl();
-                Glide.with(requireContext()).load(Uri.parse(userProfile.getPhotoUrl())).apply(requestOptions)
-                        .placeholder(R.drawable.user).error(R.drawable.user).into(binding.civAvt);
+                if (userProfile.getPhotoUrl() == null) {
+                    Glide.with(this).load(R.drawable.user).apply(requestOptions).placeholder(R.drawable.user).error(R.drawable.user).into(binding.civAvt);
+                } else {
+                    userPhotoUrl = userProfile.getPhotoUrl();
+                    Glide.with(this).load(userPhotoUrl).apply(requestOptions).placeholder(R.drawable.user).error(R.drawable.user).into(binding.civAvt);
+                }
                 binding.setUserProfile(userProfile);
                 ProgressDialogLoadingUtils.dismissProgressLoading();
                 binding.scrollView.setVisibility(View.VISIBLE);
